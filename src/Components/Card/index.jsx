@@ -1,11 +1,14 @@
 import { useContext } from "react";
 import { PlusIcon } from '@heroicons/react/24/solid'
-import { ShoppingCartContext } from "../Context";
+import { ShoppingCartContext } from "../../Context";
 
 const Card = (data) => {
     const context = useContext(ShoppingCartContext)
+    
     return (
-        <div className='w-56 bg-white rounded-lg cursor-pointer h-60'>
+        <div 
+          className='w-56 bg-white rounded-lg cursor-pointer h-60'
+          onClick={() => context.openProductDetail()}>
             <figure className='relative w-full mb-2 h-4/5'>
                 <span className='absolute bottom-0 left-0 m-2 text-xs text-black rounded-lg bg-white/60 px-3 py-0.5'>{data.data.category.name}</span>
                 <img className='object-cover w-full h-full rounded-lg' src={data.data.images[0]} alt={data.data.title} />

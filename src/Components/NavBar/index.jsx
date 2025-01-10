@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { ShoppingBagIcon } from '@heroicons/react/24/solid'
-import { ShoppingCartContext } from '../Context'
+import { ShoppingCartContext } from '../../Context'
 
 const Navbar = () => {
     const context = useContext(ShoppingCartContext)

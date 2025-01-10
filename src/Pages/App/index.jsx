@@ -7,7 +7,7 @@ import NotFound from '../NotFound'
 import SignIn from '../SignIn'
 import Navbar from '../../Components/NavBar'
 import './App.css'
-import { ShoppingCartProvider } from '../../Components/Context'
+import { ShoppingCartProvider } from '../../Context'
 
 const AppRoutes = () => {
   let routes = useRoutes([
