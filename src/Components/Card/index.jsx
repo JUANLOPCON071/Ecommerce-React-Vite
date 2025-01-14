@@ -4,11 +4,16 @@ import { ShoppingCartContext } from "../../Context";
 
 const Card = (data) => {
     const context = useContext(ShoppingCartContext)
+
+    const showProduct = (productDetail) => {
+        context.openProductDetail()
+        context.setProductToShow(productDetail)
+    }
     
     return (
         <div 
           className='w-56 bg-white rounded-lg cursor-pointer h-60'
-          onClick={() => context.openProductDetail()}>
+          onClick={() => showProduct(data.data)}>
             <figure className='relative w-full mb-2 h-4/5'>
                 <span className='absolute bottom-0 left-0 m-2 text-xs text-black rounded-lg bg-white/60 px-3 py-0.5'>{data.data.category.name}</span>
                 <img className='object-cover w-full h-full rounded-lg' src={data.data.images[0]} alt={data.data.title} />
