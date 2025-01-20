@@ -35,7 +35,6 @@ export const ShoppingCartProvider = ({children}) => {
       fetch('https://api.escuelajs.co/api/v1/products')
       .then(response => response.json())
       .then(data => setItems(data))
-      .then(console.log(items))
     },[])
 
     const filteredItemsByTitle = (items, searchByTitle) => {
@@ -70,9 +69,6 @@ export const ShoppingCartProvider = ({children}) => {
         if(!searchByTitle && searchByCategory) setFilteredItems(filterBy('BY_CATEGORY', items, searchByTitle, searchByCategory))
         if(!searchByTitle && !searchByCategory) setFilteredItems(filterBy(null, items, searchByTitle, searchByCategory))
         },[items, searchByTitle, searchByCategory])      
-
-      console.log('filteredItems: ', filteredItems);
-      
 
     return (
         <ShoppingCartContext.Provider value={{
