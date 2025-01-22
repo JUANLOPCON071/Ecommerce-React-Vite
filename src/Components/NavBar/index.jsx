@@ -6,6 +6,12 @@ import { ShoppingCartContext } from '../../Context'
 const Navbar = () => {
     const context = useContext(ShoppingCartContext)
     const activeStyle = 'underline underline-offset-4'
+
+    const handleSignOut = () => {
+      const stringifiedSignOut = JSON.stringify(true)
+      localStorage.setItem('sign-out', stringifiedSignOut)
+      context.setSignOut(true)
+    }
     return (
         <nav className='fixed top-0 z-10 flex items-center justify-between w-full px-8 py-5 text-sm font-light'>
             <ul className='flex items-center gap-3'>
@@ -47,7 +53,7 @@ const Navbar = () => {
                 <li>
                     <NavLink 
                       to='/furnitures'
-                      onClick={() => context.setSearchByCategory('un nuevo nombre')}
+                      onClick={() => context.setSearchByCategory('Furniture')}
                       className={({ isActive }) =>
                         isActive ? activeStyle : undefined
                       }>
@@ -67,7 +73,7 @@ const Navbar = () => {
                 <li>
                     <NavLink 
                       to='/others'
-                      onClick={() => context.setSearchByCategory('Others')}
+                      onClick={() => context.setSearchByCategory('Miscellaneous')}
                       className={({ isActive }) =>
                         isActive ? activeStyle : undefined
                       }>
@@ -102,8 +108,9 @@ const Navbar = () => {
                       to='/sign-in'
                       className={({ isActive }) =>
                         isActive ? activeStyle : undefined
-                      }>
-                        Sign In
+                      }
+                      onClick={() => handleSignOut()}>
+                        Sign out
                     </NavLink>
                 </li>
                 <li className='flex items-center'>
