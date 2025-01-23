@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { ShoppingBagIcon } from '@heroicons/react/24/solid'
 import { ShoppingCartContext } from '../../Context'
+import ShoppingCart from '../ShoppingCart'
 
 const Navbar = () => {
     const context = useContext(ShoppingCartContext)
@@ -10,6 +11,13 @@ const Navbar = () => {
     const signOut = localStorage.getItem('sign-out')
     const parsedSignOut = JSON.parse(signOut)
     const isUserSignOut = context.signOut || parsedSignOut
+
+    const account = localStorage.getItem('account')
+    const parsedAccount = JSON.parse(account)
+
+    const noAccountInLocalStorage = parsedAccount ? Object.keys(parsedAccount).length === 0 : true
+    const noAccountInLocalState = context.account ? Object.keys(context.account).length === 0 : true
+    const hasUserAnAccount = !noAccountInLocalStorage || !noAccountInLocalState
 
     const handleSignOut = () => {
       const stringifiedSignOut = JSON.stringify(true)
@@ -27,53 +35,66 @@ const Navbar = () => {
               isActive ? activeStyle : undefined
             }
             onClick={() => handleSignOut()}>
-              Sign out
+              Sign In
           </NavLink>
         </li>
         )
       } else {
-        return (
-          <>
-            <li className='text-black/60'>
-              juan@gmail.com
-            </li>
+        if (hasUserAnAccount && !isUserSignOut) {
+          return (
+            <>
+              <li className='text-black/60'>
+                juan@gmail.com
+              </li>
+              <li>
+                <NavLink 
+                  to='/my-orders'
+                  className={({ isActive }) =>
+                    isActive ? activeStyle : undefined
+                  }>
+                    My Orders
+                </NavLink>
+              </li>
+              <li>
+                <NavLink 
+                  to='/my-account'
+                  className={({ isActive }) =>
+                    isActive ? activeStyle : undefined
+                  }>
+                     My Account
+                </NavLink>
+              </li>
+              <li>
+                <NavLink 
+                  to='/sign-in'
+                  className={({ isActive }) =>
+                    isActive ? activeStyle : undefined
+                  }
+                  onClick={() => handleSignOut()}>
+                        Sign out
+                </NavLink>
+              </li>
+            </>
+          )
+        } else {
+          return (
             <li>
-              <NavLink 
-                to='/my-orders'
-                className={({ isActive }) =>
-                  isActive ? activeStyle : undefined
-                }>
-                  My Orders
-              </NavLink>
-            </li>
-            <li>
-              <NavLink 
-                to='/my-account'
-                className={({ isActive }) =>
-                  isActive ? activeStyle : undefined
-                }>
-                   My Account
-              </NavLink>
-            </li>
-            <li>
-              <NavLink 
-                to='/sign-in'
-                className={({ isActive }) =>
-                  isActive ? activeStyle : undefined
-                }
-                onClick={() => handleSignOut()}>
-                      Sign out
-              </NavLink>
-            </li>
-          </>
-        )
+            <NavLink
+              to="/sign-in"
+              className={({ isActive }) => isActive ? activeStyle : undefined }
+              onClick={() => handleSignOut()}>
+              Sign up
+            </NavLink>
+          </li>
+          )
+        }
       }
     }
     return (
         <nav className='fixed top-0 z-10 flex items-center justify-between w-full px-8 py-5 text-sm font-light'>
             <ul className='flex items-center gap-3'>
                 <li className='text-lg font-semibold'>
-                    <NavLink to='/'>
+                    <NavLink to={`${isUserSignOut ? '/sign-in' : '/'}`}>
                         Shopi
                     </NavLink>
                 </li>
@@ -141,8 +162,7 @@ const Navbar = () => {
             <ul className='flex items-center gap-3'>
                 {renderView()}
                 <li className='flex items-center'>
-                  <ShoppingBagIcon className='w-6 h-6 text-black'></ShoppingBagIcon>
-                  <div>{context.cartProducts.length}</div>
+                  <ShoppingCart/>
                 </li>
             </ul>
         </nav>

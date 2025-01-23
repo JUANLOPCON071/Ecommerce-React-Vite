@@ -5,6 +5,11 @@ import { ShoppingCartContext } from "../../Context";
 const Card = (data) => {
     const context = useContext(ShoppingCartContext)
 
+    const signOut = localStorage.getItem('sign-out')
+    const parsedSignOut = JSON.parse(signOut)
+
+    const isUserSignOut = context.signOut || parsedSignOut
+
     const showProduct = (productDetail) => {
         context.openProductDetail()
         context.setProductToShow(productDetail)
@@ -15,9 +20,7 @@ const Card = (data) => {
         context.setCount(context.count + 1)
         context.setCartProducts([...context.cartProducts, productData])
         context.openCheckoutSideMenu()
-        context.closeProductDetail()
-        // console.log('CART:', context.cartProducts);
-        
+        context.closeProductDetail()        
     }
 
     const renderIcon = (id) => {
