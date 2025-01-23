@@ -44,7 +44,7 @@ const Navbar = () => {
           return (
             <>
               <li className='text-black/60'>
-                juan@gmail.com
+                {parsedAccount?.email}
               </li>
               <li>
                 <NavLink 
@@ -91,7 +91,7 @@ const Navbar = () => {
       }
     }
     return (
-        <nav className='fixed top-0 z-10 flex items-center justify-between w-full px-8 py-5 text-sm font-light'>
+        <nav className='fixed top-0 z-10 flex items-center justify-between w-full px-8 py-5 text-sm font-light bg-white'>
             <ul className='flex items-center gap-3'>
                 <li className='text-lg font-semibold'>
                     <NavLink to={`${isUserSignOut ? '/sign-in' : '/'}`}>

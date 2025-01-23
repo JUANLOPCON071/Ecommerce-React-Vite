@@ -53,7 +53,7 @@ const Card = (data) => {
                 <img className='object-cover w-full h-full rounded-lg' src={data.data.images[0]} alt={data.data.title} />
                 {renderIcon(data.data.id)}
             </figure>
-            <p className='flex justify-between'>
+            <p className='flex items-center justify-between'>
                 <span className='text-sm font-light'>{data.data.title}</span>
                 <span className='text-lg font-medium'>${data.data.price}</span>
             </p>
