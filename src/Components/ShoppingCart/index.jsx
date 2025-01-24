@@ -5,9 +5,17 @@ import { ShoppingBagIcon } from "@heroicons/react/24/solid"
 const ShoppingCart = () => {
     const context = useContext(ShoppingCartContext)
 
+    const signOut = localStorage.getItem('sign-out')
+    const parsedSignOut = JSON.parse(signOut)
+    const isUserSignOut = context.signOut || parsedSignOut
+
     const openCheckoutSideMenu = () => {
-        context.openCheckoutSideMenu()
-        context.closeProductDetail()
+        if (isUserSignOut) {
+            return
+        } else {
+            context.openCheckoutSideMenu()
+            context.closeProductDetail() 
+        }
     }
 
     return (
